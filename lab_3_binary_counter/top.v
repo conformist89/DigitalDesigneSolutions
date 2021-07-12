@@ -55,27 +55,27 @@ module top
     // displayed in different groups of LEDs.
 
  
-//    wire key = key_sw [0];
-//    reg key_r;
-//	 
-//
-//    
-//    always @ (posedge clk or posedge reset)
-//      if (reset)
-//        key_r <= 1'b0;
-//      else
-//        key_r <= key;
-//		  
-//        
-//    wire key_pressed = ~ key & key_r;
-//    reg [3:0] cnt;
-//    
-//    always @ (posedge clk or posedge reset)
-//      if (reset)
-//        cnt <= 4'b0;
-//      else if (key_pressed)
-//        cnt <= cnt + 4'b1;
-//    assign led = ~ cnt;
+    wire key = key_sw [0];
+    reg key_r;
+	 
+
+    
+    always @ (posedge clk or posedge reset)
+      if (reset)
+        key_r <= 1'b0;
+      else
+        key_r <= key;
+		  
+        
+    wire key_pressed = ~ key & key_r;
+    reg [1:0] cnt;
+    
+    always @ (posedge clk or posedge reset)
+      if (reset)
+        cnt <= 4'b0;
+      else if (key_pressed)
+        cnt <= cnt + 4'b1;
+    assign led[1:0] = ~ cnt;
 
 	
 
@@ -92,7 +92,7 @@ module top
 		  
 		  
 	 wire key_pressed1 = ~ key1 & key_r1;
-    reg [3:0] cnt1;
+    reg [3:2] cnt1;
 	 
 	 
 	 always @ (posedge clk or posedge reset)
@@ -100,7 +100,7 @@ module top
         cnt1 <= 4'b0;
       else if (key_pressed1)
         cnt1 <= cnt1 - 4'b1;
-    assign led = ~ cnt1;
+    assign led[3:2] = ~ cnt1;
   
   
 
