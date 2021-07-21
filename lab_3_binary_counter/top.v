@@ -4,7 +4,7 @@ module top
 (
     input        clk,
     input        reset_n,
-    
+
     input  [3:0] key_sw,
     output [3:0] led,
 
@@ -32,7 +32,7 @@ module top
     // Try different bit slices to display.
 
 //    reg [31:0] cnt;
-//    
+//
 //    always @ (posedge clk or posedge reset)
 //      if (reset)
 //        cnt <= 32'b0;
@@ -54,22 +54,22 @@ module top
     // 2. Two counters controlled by different keys
     // displayed in different groups of LEDs.
 
- 
+
     wire key = key_sw [0];
     reg key_r;
-	 
 
-    
+
+
     always @ (posedge clk or posedge reset)
       if (reset)
         key_r <= 1'b0;
       else
         key_r <= key;
-		  
-        
+
+
     wire key_pressed = ~ key & key_r;
     reg [1:0] cnt;
-    
+
     always @ (posedge clk or posedge reset)
       if (reset)
         cnt <= 4'b0;
@@ -78,30 +78,27 @@ module top
     assign led[1:0] = ~ cnt;
 
 	
-
-	
-	 
 	 wire key1 = key_sw [1];
  	 reg key_r1;
-	 
-	     always @ (posedge clk or posedge reset)
-      if (reset)
-        key_r1 <= 1'b0;
-      else
-        key_r1 <= key1;
-		  
-		  
+
+   always @ (posedge clk or posedge reset)
+    if (reset)
+      key_r1 <= 1'b0;
+    else
+      key_r1 <= key1;
+
+
 	 wire key_pressed1 = ~ key1 & key_r1;
     reg [3:2] cnt1;
-	 
-	 
+
+
 	 always @ (posedge clk or posedge reset)
       if (reset)
         cnt1 <= 4'b0;
       else if (key_pressed1)
         cnt1 <= cnt1 - 4'b1;
     assign led[3:2] = ~ cnt1;
-  
-  
+
+
 
 endmodule
