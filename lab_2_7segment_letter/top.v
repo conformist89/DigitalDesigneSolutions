@@ -37,12 +37,13 @@ module top
     //  0 means light
 
     parameter [7:0] C = 8'b01100011,
-                    E = 8'b01100001,
-                    h = 8'b11010001,
-                    I = 8'b11110011,
-                    P = 8'b00110001;
-//						  O = 8'b00000011,
-//						  L = 8'b11100011;
+
+						  ZERO = 8'b11111111,
+                    P = 8'b00110001,
+						  O = 8'b00000011,
+						  L = 8'b11100011,
+						  Y = 8'b10011001,
+						  A = 8'b00010001;
 
 //    assign abcdefgh = key_sw [0] ? C : E;
 //    assign digit    = key_sw [1] ? 4'b1110 : 4'b1101;
@@ -63,11 +64,12 @@ module top
     
     always @*
       case (key_sw)
-      4'b0111: letter = C;
-      4'b1011: letter = h;
-      4'b1101: letter = I;
-      4'b1110: letter = P;
-      default: letter = E;
+
+      4'b0111: letter = O;
+		4'b1011: letter = L;
+		4'b1101: letter = Y;
+		4'b1110: letter = A;
+      default: letter = ZERO;
       endcase
       
     assign abcdefgh = letter;
